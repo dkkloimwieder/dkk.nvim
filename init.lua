@@ -25,7 +25,6 @@
 --  note: must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
 -- set to true if you have a nerd font installed and selected in the terminal
 vim.g.have_nerd_font = false
 
@@ -164,6 +163,25 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- note: here is where you install your plugins.
 require('lazy').setup({
+  { -- You can easily change to a different colorscheme.
+    -- Change the name of the colorscheme plugin below, and then
+    -- change the command in the config to whatever the name of that colorscheme is.
+    --
+    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+    --'rebelot/kanagawa.nvim',
+    'blazkowolf/gruber-darker.nvim',
+    priority = 1000, -- Make sure to load this before all the other start plugins.
+    init = function()
+      -- Load the colorscheme here.
+      -- Like many other themes, this one has different styles, and you could load
+      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+      --vim.cmd.colorscheme 'kanagawa'
+      vim.cmd.colorscheme 'gruber-darker'
+
+      -- You can configure highlights by doing something like:
+      --vim.cmd.hi 'Comment gui=none'
+    end,
+  },
   -- note: plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- detect tabstop and shiftwidth automatically
 
@@ -623,9 +641,9 @@ require('lazy').setup({
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
-      })
+      --vim.list_extend(ensure_installed, {
+      --  'stylua', -- Used to format Lua code
+      --})
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
@@ -802,24 +820,6 @@ require('lazy').setup({
           { name = 'copilot' },
         },
       }
-    end,
-  },
-
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'rebelot/kanagawa.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'kanagawa'
-
-      -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
     end,
   },
 
